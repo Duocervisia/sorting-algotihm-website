@@ -1,5 +1,6 @@
 const languages = ["Python", "JS", "CPP"];
 const algorithms = ["Merge-Sort", "Quick-Sort", "Bubble-Sort"];
+
 const plotterHeight = 300;
 
 let selectedAlgorithm = algorithms[0];
@@ -80,7 +81,7 @@ function createTableAlgorithms(){
     }
 
     //create adaptedData and put every element in, wehre element.algorithm == selectedAlgorithm
-    adaptedData = [];
+    let adaptedData = [];
     data.forEach(element => {
         if(element.algorithm == selectedAlgorithm){
             adaptedData.push(element);
@@ -141,7 +142,7 @@ function createTableLanguages(){
     }
 
     //create adaptedData and put every element in, wehre element.algorithm == selectedAlgorithm
-    adaptedData = [];
+    let adaptedData = [];
     data.forEach(element => {
         if(element.language == selectedLanguage){
             adaptedData.push(element);

@@ -1,7 +1,9 @@
 // const languages = ["Python", "JS", "C++"];
 // const algorithms = ["Merge Sort", "Quick Sort", "Bubble Sort"];
 //y time in milliseconds over 20 tries
-data = [
+
+
+const data = [
     // Merge Sort
     {
         algorithm: "Merge-Sort",
