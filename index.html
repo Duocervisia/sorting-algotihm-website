@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Auswertung</title>
+    <script src="https://cdn.plot.ly/plotly-2.35.2.min.js" charset="utf-8"></script>
+    <link rel="stylesheet" type="text/css" href="main.css">
+</head>
+<body>
+    <div class="row-flex">
+        <h3>Gleiche Sortieralgorithmen, andere Sprachen</h3>
+        <select id="select-algorithms"></select>
+        <h3>Performancevergleich:</h3>
+        <select id="select-algorithms-comparisson"></select>
+    </div>
+    <div id="plotter-algorithms-holder"></div>
+    <table id="table-algorithms">
+        <tr>
+            <th>Programmiersprache</th>
+            <th>Arithmetisches Mittel</th>
+            <th>Standardabweichung</th>
+        </tr>
+    </table>
+    <div class="row-flex">
+        <h3>Gleiche Sprache, andere Sortieralgorithmen</h3>
+        <select id="select-languages"></select>
+        <h3>Performancevergleich:</h3>
+        <select id="select-languages-comparisson"></select>
+    </div>
+    <div id="plotter-language-holder"></div>
+    <table id="table-languages">
+        <tr>
+            <th>Sortieralgorithmen</th>
+            <th>Arithmetisches Mittel</th>
+            <th>Standardabweichung</th>
+        </tr>
+    </table>
+    <br><br><br><br><br><br>
+    <table id="table">
+        <tr>
+            <th>Sortieralgorithmen</th>
+            <th>Programmiersprache</th>
+            <th>Arithmetisches Mittel</th>
+            <th>Standardabweichung</th>
+        </tr>
+    </table>
+       
+    <script src="main.js"></script>
+    <script src="plotter.js"></script>
+</body>
+</html>
