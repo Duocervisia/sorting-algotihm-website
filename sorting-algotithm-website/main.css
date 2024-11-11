@@ -20,3 +20,9 @@ table th {
     gap: 1em;
     /* justify-content: center; */
 }
+#plotter-algorithms-holder, #plotter-algorithms-bar-holder{
+    width: 50%;
+}
+#plotter-language-holder, #plotter-language-bar-holder{
+    width: 50%;
+}

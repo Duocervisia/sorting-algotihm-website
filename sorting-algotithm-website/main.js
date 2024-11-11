@@ -23,6 +23,11 @@ languages.forEach((option) => {
     plotter.id = "plotter-" + option;
     plotter.style.height = plotterHeight + "px";
     document.getElementById("plotter-language-holder").appendChild(plotter);
+
+    const plotterBar = document.createElement("div");
+    plotterBar.id = "plotter-bar-" + option;
+    plotterBar.style.height = plotterHeight + "px";
+    document.getElementById("plotter-language-bar-holder").appendChild(plotterBar);
 });
 
 
@@ -41,6 +46,12 @@ algorithms.forEach((option) => {
     plotter.id = "plotter-" + option;
     plotter.style.height = plotterHeight + "px";
     document.getElementById("plotter-algorithms-holder").appendChild(plotter);
+
+    const plotterBar = document.createElement("div");
+    plotterBar.id = "plotter-bar-" + option;
+    plotterBar.style.height = plotterHeight + "px";
+    document.getElementById("plotter-algorithms-bar-holder").appendChild(plotterBar);
+
 });
 
 //when select option is pressed, show the plotter for that language
@@ -49,8 +60,10 @@ document.getElementById("select-algorithms").addEventListener("change", (event) 
     createTableAlgorithms();
     algorithms.forEach((algorithm) => {
         document.getElementById("plotter-" + algorithm).style.display = "none";
+        document.getElementById("plotter-bar-" + algorithm).style.display = "none";
     });
     document.getElementById("plotter-" + selectedAlgorithm).style.display = "block";
+    document.getElementById("plotter-bar-" + selectedAlgorithm).style.display = "block";
 });
 
 //when select option is pressed, show the plotter for that language
@@ -59,8 +72,10 @@ document.getElementById("select-languages").addEventListener("change", (event) =
     createTableLanguages();
     languages.forEach((language) => {
         document.getElementById("plotter-" + language).style.display = "none";
+        document.getElementById("plotter-bar-" + language).style.display = "none";
     });
     document.getElementById("plotter-" + selectedLanguage).style.display = "block";
+    document.getElementById("plotter-bar-" + selectedLanguage).style.display = "block";
 });
 
 document.getElementById("select-algorithms-comparisson").addEventListener("change", (event) => {

@@ -55,14 +55,19 @@ const data = [
 ]
 
 let plotDataAlgorithm = []; 
+let plotDataBarAlgorithm = []; 
 let plotDataLanguage = [];
+let plotDataBarLanguage = [];
+
 
 for (let i = 0; i < algorithms.length; i++) {
     plotDataAlgorithm[i] = [];
+    plotDataBarAlgorithm[i] = [];
 }
 
 for (let i = 0; i < languages.length; i++) {
     plotDataLanguage[i] = [];
+    plotDataBarLanguage[i] = [];
 }
 
 
@@ -74,13 +79,23 @@ data.forEach(element => {
         name: element.algorithm + " (" + element.language + ")",
     });
 
+    plotDataBarLanguage[languages.indexOf(element.language)].push({
+        y: [calculateMean(element.y)], // Ensure y is an array
+        type: 'bar',
+        name: element.algorithm + " (" + element.language + ")",
+    });
+
     plotDataAlgorithm[algorithms.indexOf(element.algorithm)].push({
         y: element.y,
         type: 'box',
         name: element.algorithm + " (" + element.language + ")",
     });
-
-
+    plotDataBarAlgorithm[algorithms.indexOf(element.algorithm)].push({
+        y: [calculateMean(element.y)], // Ensure y is an array
+        type: 'bar',
+        name: element.algorithm + " (" + element.language + ")",
+    });
+    
 });
 
 // plotDataAlgorithm.forEach(element => {
@@ -105,9 +120,23 @@ plotDataLanguage.forEach(element => {
 });
 
 i = 0;
+plotDataBarLanguage.forEach(element => {
+    console.log('plotter-'+ languages[i])
+    Plotly.newPlot('plotter-bar-'+ languages[i], element, layout);
+    i++;
+});
+
+i = 0;
 plotDataAlgorithm.forEach(element => {
     console.log('plotter-'+ algorithms[i])
     Plotly.newPlot('plotter-'+ algorithms[i], element, layout);
+    i++;
+});
+
+i = 0;
+plotDataBarAlgorithm.forEach(element => {
+    console.log('plotter-'+ algorithms[i])
+    Plotly.newPlot('plotter-bar-'+ algorithms[i], element, layout);
     i++;
 });
 
@@ -153,6 +182,7 @@ let j = 0;
 languages.forEach((option) => {
     if(j != 0){
         document.querySelector("#plotter-"+ option).style.display = "none";
+        document.querySelector("#plotter-bar-"+ option).style.display = "none";
     }else{
         createTableLanguages();
     }
@@ -162,6 +192,7 @@ j=0;
 algorithms.forEach((option) => {
     if(j != 0){
         document.querySelector("#plotter-"+ option).style.display = "none";
+        document.querySelector("#plotter-bar-"+ option).style.display = "none";
     }else{
         createTableAlgorithms();
     }
