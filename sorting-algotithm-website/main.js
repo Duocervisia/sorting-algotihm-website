@@ -25,9 +25,9 @@ languages.forEach((option) => {
     document.getElementById("plotter-language-holder").appendChild(plotter);
 
     const plotterBar = document.createElement("div");
-    plotterBar.id = "plotter-bar-" + option;
+    plotterBar.id = "plotter-sorted-" + option;
     plotterBar.style.height = plotterHeight + "px";
-    document.getElementById("plotter-language-bar-holder").appendChild(plotterBar);
+    document.getElementById("plotter-language-sorted-holder").appendChild(plotterBar);
 });
 
 
@@ -48,9 +48,9 @@ algorithms.forEach((option) => {
     document.getElementById("plotter-algorithms-holder").appendChild(plotter);
 
     const plotterBar = document.createElement("div");
-    plotterBar.id = "plotter-bar-" + option;
+    plotterBar.id = "plotter-sorted-" + option;
     plotterBar.style.height = plotterHeight + "px";
-    document.getElementById("plotter-algorithms-bar-holder").appendChild(plotterBar);
+    document.getElementById("plotter-algorithms-sorted-holder").appendChild(plotterBar);
 
 });
 
@@ -60,10 +60,10 @@ document.getElementById("select-algorithms").addEventListener("change", (event) 
     createTableAlgorithms();
     algorithms.forEach((algorithm) => {
         document.getElementById("plotter-" + algorithm).style.display = "none";
-        document.getElementById("plotter-bar-" + algorithm).style.display = "none";
+        document.getElementById("plotter-sorted-" + algorithm).style.display = "none";
     });
     document.getElementById("plotter-" + selectedAlgorithm).style.display = "block";
-    document.getElementById("plotter-bar-" + selectedAlgorithm).style.display = "block";
+    document.getElementById("plotter-sorted-" + selectedAlgorithm).style.display = "block";
 });
 
 //when select option is pressed, show the plotter for that language
@@ -72,10 +72,10 @@ document.getElementById("select-languages").addEventListener("change", (event) =
     createTableLanguages();
     languages.forEach((language) => {
         document.getElementById("plotter-" + language).style.display = "none";
-        document.getElementById("plotter-bar-" + language).style.display = "none";
+        document.getElementById("plotter-sorted-" + language).style.display = "none";
     });
     document.getElementById("plotter-" + selectedLanguage).style.display = "block";
-    document.getElementById("plotter-bar-" + selectedLanguage).style.display = "block";
+    document.getElementById("plotter-sorted-" + selectedLanguage).style.display = "block";
 });
 
 document.getElementById("select-algorithms-comparisson").addEventListener("change", (event) => {
@@ -117,35 +117,66 @@ function createTableAlgorithms(){
     adaptedData.forEach(element => {
         let meanCompare;
         let standardCompare;
+        let meanSortedCompare;
+        let standardSortedCompare;
         if(element == adaptedData[0]){
             meanCompare = 0;
             standardCompare = 0;
+            meanSortedCompare = 0;
+            standardSortedCompare = 0;
         }else{
-            let meanFirstElement = calculateMean(adaptedData[0].y);
-            let standardFirstElement = calculateStandardDeviation(adaptedData[0].y, meanFirstElement);
+            let meanFirstElement = calculateMean(adaptedData[0].unsorted);
+            let standardFirstElement = calculateStandardDeviation(adaptedData[0].unsorted, meanFirstElement);
 
-            meanCompare = (calculateMean(element.y) - meanFirstElement) / meanFirstElement * 100;
-            standardCompare = (calculateStandardDeviation(element.y, calculateMean(element.y)) - standardFirstElement) / standardFirstElement * 100;
+            let meanSortedFirstElement = calculateMean(adaptedData[0].sorted);
+            let standardSortedFirstElement = calculateStandardDeviation(adaptedData[0].sorted, meanSortedFirstElement);
+
+            meanCompare = (calculateMean(element.unsorted) - meanFirstElement) / meanFirstElement * 100;
+            standardCompare = (calculateStandardDeviation(element.unsorted, calculateMean(element.unsorted)) - standardFirstElement) / standardFirstElement * 100;
+            
+            meanSortedCompare = (calculateMean(element.sorted) - meanSortedFirstElement) / meanSortedFirstElement * 100;
+            standardSortedCompare = (calculateStandardDeviation(element.sorted, calculateMean(element.sorted)) - standardSortedFirstElement) / standardSortedFirstElement * 100;
         }
+
 
         let row = table.insertRow(-1);
         let cell1 = row.insertCell(0);
         let cell2 = row.insertCell(1);
         let cell3 = row.insertCell(2);
-        cell1.innerHTML = element.language;
+        let cell4 = row.insertCell(3);
+        let cell5 = row.insertCell(4);
+        let cell6 = row.insertCell(5);
 
-        let mean = calculateMean(element.y);
+        cell1.innerHTML = element.name;
+
+        cell2.innerHTML = element.language;
+
+        let mean = calculateMean(element.unsorted);
         if(element.language == selectedAlgorithmLanguage){
-            cell2.innerHTML = mean;
+            cell3.innerHTML = mean;
         }else{
-            cell2.innerHTML = mean + " <span style='color:" + (meanCompare >= 0 ? "red" : "green") + "'>(" + (meanCompare >= 0 ? "+" : "") + meanCompare.toFixed(2) + "%)</span>";
+            cell3.innerHTML = mean + " <span style='color:" + (meanCompare >= 0 ? "red" : "green") + "'>(" + (meanCompare >= 0 ? "+" : "") + meanCompare.toFixed(2) + "%)</span>";
         }
 
-        let standardDeviation = calculateStandardDeviation(element.y, mean);
+        let standardDeviation = calculateStandardDeviation(element.unsorted, mean);
         if(element.language == selectedAlgorithmLanguage){
-            cell3.innerHTML = standardDeviation.toFixed(3);
+            cell4.innerHTML = standardDeviation.toFixed(3);
         }else{
-            cell3.innerHTML = standardDeviation.toFixed(3) + " <span style='color:" + (standardCompare >= 0 ? "red" : "green") + "'>(" + (standardCompare >= 0 ? "+" : "") + standardCompare.toFixed(2) + "%)</span>";
+            cell4.innerHTML = standardDeviation.toFixed(3) + " <span style='color:" + (standardCompare >= 0 ? "red" : "green") + "'>(" + (standardCompare >= 0 ? "+" : "") + standardCompare.toFixed(2) + "%)</span>";
+        }
+
+        mean = calculateMean(element.sorted);
+        if(element.language == selectedAlgorithmLanguage){
+            cell5.innerHTML = mean;
+        }else{
+            cell5.innerHTML = mean + " <span style='color:" + (meanSortedCompare >= 0 ? "red" : "green") + "'>(" + (meanSortedCompare >= 0 ? "+" : "") + meanSortedCompare.toFixed(2) + "%)</span>";
+        }
+
+        standardDeviation = calculateStandardDeviation(element.sorted, mean);
+        if(element.language == selectedAlgorithmLanguage){
+            cell6.innerHTML = standardDeviation.toFixed(3);
+        }else{
+            cell6.innerHTML = standardDeviation.toFixed(3) + " <span style='color:" + (standardSortedCompare >= 0 ? "red" : "green") + "'>(" + (standardSortedCompare >= 0 ? "+" : "") + standardSortedCompare.toFixed(2) + "%)</span>";
         }
         
     });
@@ -178,35 +209,62 @@ function createTableLanguages(){
     adaptedData.forEach(element => {
         let meanCompare;
         let standardCompare;
+        let meanSortedCompare;
+        let standardSortedCompare;
         if(element == adaptedData[0]){
             meanCompare = 0;
             standardCompare = 0;
+            meanSortedCompare = 0;
+            standardSortedCompare = 0;
         }else{
-            let meanFirstElement = calculateMean(adaptedData[0].y);
-            let standardFirstElement = calculateStandardDeviation(adaptedData[0].y, meanFirstElement);
+            let meanFirstElement = calculateMean(adaptedData[0].unsorted);
+            let standardFirstElement = calculateStandardDeviation(adaptedData[0].unsorted, meanFirstElement);
+            let meanSortedFirstElement = calculateMean(adaptedData[0].sorted);
+            let standardSortedFirstElement = calculateStandardDeviation(adaptedData[0].sorted, meanSortedFirstElement);
 
-            meanCompare = (calculateMean(element.y) - meanFirstElement) / meanFirstElement * 100;
-            standardCompare = (calculateStandardDeviation(element.y, calculateMean(element.y)) - standardFirstElement) / standardFirstElement * 100;
+            meanCompare = (calculateMean(element.unsorted) - meanFirstElement) / meanFirstElement * 100;
+            standardCompare = (calculateStandardDeviation(element.unsorted, calculateMean(element.unsorted)) - standardFirstElement) / standardFirstElement * 100;
+            meanSortedCompare = (calculateMean(element.sorted) - meanSortedFirstElement) / meanSortedFirstElement * 100;
+            standardSortedCompare = (calculateStandardDeviation(element.sorted, calculateMean(element.sorted)) - standardSortedFirstElement) / standardSortedFirstElement * 100;
         }
 
         let row = table.insertRow(-1);
         let cell1 = row.insertCell(0);
         let cell2 = row.insertCell(1);
         let cell3 = row.insertCell(2);
-        cell1.innerHTML = element.algorithm;
+        let cell4 = row.insertCell(3);
+        let cell5 = row.insertCell(4);
+        let cell6 = row.insertCell(5);
 
-        let mean = calculateMean(element.y);
+        cell1.innerHTML = element.name;
+        cell2.innerHTML = element.algorithm;
+
+        let mean = calculateMean(element.unsorted);
         if(element.algorithm == selectedLanguageAlgorithm){
-            cell2.innerHTML = mean;
+            cell3.innerHTML = mean;
         }else{
-            cell2.innerHTML = mean + " <span style='color:" + (meanCompare >= 0 ? "red" : "green") + "'>(" + (meanCompare >= 0 ? "+" : "") + meanCompare.toFixed(2) + "%)</span>";
+            cell3.innerHTML = mean + " <span style='color:" + (meanCompare >= 0 ? "red" : "green") + "'>(" + (meanCompare >= 0 ? "+" : "") + meanCompare.toFixed(2) + "%)</span>";
         }
 
-        let standardDeviation = calculateStandardDeviation(element.y, mean);
+        let standardDeviation = calculateStandardDeviation(element.unsorted, mean);
         if(element.algorithm == selectedLanguageAlgorithm){
-            cell3.innerHTML = standardDeviation.toFixed(3);
+            cell4.innerHTML = standardDeviation.toFixed(3);
         }else{
-            cell3.innerHTML = standardDeviation.toFixed(3) + " <span style='color:" + (standardCompare >= 0 ? "red" : "green") + "'>(" + (standardCompare >= 0 ? "+" : "") + standardCompare.toFixed(2) + "%)</span>";
+            cell4.innerHTML = standardDeviation.toFixed(3) + " <span style='color:" + (standardCompare >= 0 ? "red" : "green") + "'>(" + (standardCompare >= 0 ? "+" : "") + standardCompare.toFixed(2) + "%)</span>";
+        }
+
+        mean = calculateMean(element.sorted);
+        if(element.algorithm == selectedLanguageAlgorithm){
+            cell5.innerHTML = mean;
+        }else{
+            cell5.innerHTML = mean + " <span style='color:" + (meanSortedCompare >= 0 ? "red" : "green") + "'>(" + (meanSortedCompare >= 0 ? "+" : "") + meanSortedCompare.toFixed(2) + "%)</span>";
+        }
+
+        standardDeviation = calculateStandardDeviation(element.sorted, mean);
+        if(element.algorithm == selectedLanguageAlgorithm){
+            cell6.innerHTML = standardDeviation.toFixed(3);
+        }else{
+            cell6.innerHTML = standardDeviation.toFixed(3) + " <span style='color:" + (standardSortedCompare >= 0 ? "red" : "green") + "'>(" + (standardSortedCompare >= 0 ? "+" : "") + standardSortedCompare.toFixed(2) + "%)</span>";
         }
         
     });

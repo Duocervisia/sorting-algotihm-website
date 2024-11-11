@@ -9,35 +9,49 @@
     <div class="row-flex">
         <h3>Gleicher Sortieralgorithmus, andere Sprachen</h3>
         <select id="select-algorithms"></select>
-        <h3>Tabellenvergleich zu:</h3>
-        <select id="select-algorithms-comparisson"></select>
+        <h3 style="display: none;">Tabellenvergleich zu:</h3>
+        <select id="select-algorithms-comparisson" style="display: none;"></select>
+    </div>
+    <div class="data-title">
+        <h4>Unsortierter Datensatz</h4>
+        <h4>Sortierter Datensatz</h4>
     </div>
     <div class="plotter-holder row-flex">
         <div id="plotter-algorithms-holder"></div>
-        <div id="plotter-algorithms-bar-holder"></div>
+        <div id="plotter-algorithms-sorted-holder"></div>
     </div>
     <table id="table-algorithms">
         <tr>
+            <th>Name</th>
             <th>Programmiersprache</th>
-            <th>Arithmetisches Mittel (ms)</th>
-            <th>Standardabweichung (ms)</th>
+            <th>Arithmetisches Mittel Unsortiert (ms)</th>
+            <th>Standardabweichung Unsortiert (ms)</th>
+            <th>Arithmetisches Mittel Sortiert (ms)</th>
+            <th>Standardabweichung Sortiert (ms)</th>
         </tr>
     </table>
     <div class="row-flex">
         <h3>Gleiche Sprache, andere Sortieralgorithmen</h3>
         <select id="select-languages"></select>
-        <h3>Tabellenvergleich zu:</h3>
-        <select id="select-languages-comparisson"></select>
+        <h3 style="display: none;">Tabellenvergleich zu:</h3>
+        <select style="display: none;" id="select-languages-comparisson"></select>
+    </div>
+    <div class="data-title">
+        <h4>Unsortierter Datensatz</h4>
+        <h4>Sortierter Datensatz</h4>
     </div>
     <div class="plotter-holder row-flex">
         <div id="plotter-language-holder"></div>
-        <div id="plotter-language-bar-holder"></div>
+        <div id="plotter-language-sorted-holder"></div>
     </div>
     <table id="table-languages">
         <tr>
-            <th>Sortieralgorithmen</th>
-            <th>Arithmetisches Mittel (ms)</th>
-            <th>Standardabweichung (ms)</th>
+            <th>Name</th>
+            <th>Programmiersprache</th>
+            <th>Arithmetisches Mittel Unsortiert (ms)</th>
+            <th>Standardabweichung Unsortiert (ms)</th>
+            <th>Arithmetisches Mittel Sortiert (ms)</th>
+            <th>Standardabweichung Sortiert (ms)</th>
         </tr>
     </table>
     <br><br><br><br><br><br>
