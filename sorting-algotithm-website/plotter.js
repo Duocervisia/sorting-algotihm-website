@@ -158,6 +158,14 @@ var layout = {
         title: 'Laufzeit in Millisekunden'
     }
 };
+var layoutBar = {
+    yaxis: {
+        title: 'Laufzeit in Millisekunden'
+    },
+    xaxis: {
+        title: 'Versuche'
+    }
+};
 let i = 0;
 plotDataLanguage.forEach(element => {
     console.log('plotter-'+ languages[i])
@@ -188,25 +196,25 @@ plotDataSortedAlgorithm.forEach(element => {
 
 i = 0;
 plotDataAlgorithmsBar.forEach(element => {
-    Plotly.newPlot('plotter-bar-'+ algorithms[i], element, layout);
+    Plotly.newPlot('plotter-bar-'+ algorithms[i], element, layoutBar);
     i++;
 });
 
 i = 0;
 plotDataSortedAlgorithmsBar.forEach(element => {
-    Plotly.newPlot('plotter-sorted-bar-'+ algorithms[i], element, layout);
+    Plotly.newPlot('plotter-sorted-bar-'+ algorithms[i], element, layoutBar);
     i++;
 });
 
 i = 0;
 plotDataLanguageBar.forEach(element => {
-    Plotly.newPlot('plotter-bar-'+ languages[i], element, layout);
+    Plotly.newPlot('plotter-bar-'+ languages[i], element, layoutBar);
     i++;
 });
 
 i = 0;
 plotDataSortedLanguageBar.forEach(element => {
-    Plotly.newPlot('plotter-sorted-bar-'+ languages[i], element, layout);
+    Plotly.newPlot('plotter-sorted-bar-'+ languages[i], element, layoutBar);
     i++;
 });
 
@@ -243,6 +251,17 @@ function calculateStandardDeviation(data, mean){
         sumOfSquares += Math.pow(el - mean, 2);
     })
     return Math.sqrt(sumOfSquares / (data.length-1));
+}
+
+function calculateMedian(data){
+    data.sort((a, b) => a - b);
+    let median;
+    if(data.length % 2 == 0){
+        median = (data[data.length/2] + data[data.length/2 - 1]) / 2;
+    }else{
+        median = data[Math.floor(data.length/2)];
+    }
+    return median;
 }
 
 
