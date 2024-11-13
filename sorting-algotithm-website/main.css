@@ -20,12 +20,10 @@ table th {
     gap: 1em;
     /* justify-content: center; */
 }
-#plotter-algorithms-holder, #plotter-algorithms-sorted-holder{
+.fifty{
     width: 50%;
 }
-#plotter-language-holder, #plotter-language-sorted-holder{
-    width: 50%;
-}
+
 .data-title{
     display: flex;
     justify-content: space-around;

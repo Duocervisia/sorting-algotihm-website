@@ -76,15 +76,27 @@ let plotDataSortedAlgorithm = [];
 let plotDataLanguage = [];
 let plotDataSortedLanguage = [];
 
+let plotDataAlgorithmsBar = [];
+let plotDataSortedAlgorithmsBar = [];
+
+let plotDataLanguageBar = [];
+let plotDataSortedLanguageBar = [];
+
 
 for (let i = 0; i < algorithms.length; i++) {
     plotDataAlgorithm[i] = [];
     plotDataSortedAlgorithm[i] = [];
+
+    plotDataAlgorithmsBar[i] = [];
+    plotDataSortedAlgorithmsBar[i] = [];
 }
 
 for (let i = 0; i < languages.length; i++) {
     plotDataLanguage[i] = [];
     plotDataSortedLanguage[i] = [];
+
+    plotDataLanguageBar[i] = [];
+    plotDataSortedLanguageBar[i] = [];
 }
 
 
@@ -110,6 +122,33 @@ data.forEach(element => {
     plotDataSortedAlgorithm[algorithms.indexOf(element.algorithm)].push({
         y: element.sorted,
         type: 'box',
+        name: element.algorithm + " (" + element.language + ")",
+    });
+
+    plotDataAlgorithmsBar[algorithms.indexOf(element.algorithm)].push({
+        y: element.unsorted,
+        x: Array.from({ length: element.unsorted.length }, (_, i) => i + 1),
+        type: 'bar',
+        name: element.algorithm + " (" + element.language + ")",
+    });
+    plotDataSortedAlgorithmsBar[algorithms.indexOf(element.algorithm)].push({
+        y: element.sorted,
+        x: Array.from({ length: element.sorted.length }, (_, i) => i + 1),
+        type: 'bar',
+        name: element.algorithm + " (" + element.language + ")",
+    });
+
+    plotDataLanguageBar[languages.indexOf(element.language)].push({
+        y: element.unsorted,
+        x: Array.from({ length: element.unsorted.length }, (_, i) => i + 1),
+        type: 'bar',
+        name: element.algorithm + " (" + element.language + ")",
+    });
+
+    plotDataSortedLanguageBar[languages.indexOf(element.language)].push({
+        y: element.sorted,
+        x: Array.from({ length: element.sorted.length }, (_, i) => i + 1),
+        type: 'bar',
         name: element.algorithm + " (" + element.language + ")",
     });
 });
@@ -144,6 +183,30 @@ i = 0;
 plotDataSortedAlgorithm.forEach(element => {
     console.log('plotter-'+ algorithms[i])
     Plotly.newPlot('plotter-sorted-'+ algorithms[i], element, layout);
+    i++;
+});
+
+i = 0;
+plotDataAlgorithmsBar.forEach(element => {
+    Plotly.newPlot('plotter-bar-'+ algorithms[i], element, layout);
+    i++;
+});
+
+i = 0;
+plotDataSortedAlgorithmsBar.forEach(element => {
+    Plotly.newPlot('plotter-sorted-bar-'+ algorithms[i], element, layout);
+    i++;
+});
+
+i = 0;
+plotDataLanguageBar.forEach(element => {
+    Plotly.newPlot('plotter-bar-'+ languages[i], element, layout);
+    i++;
+});
+
+i = 0;
+plotDataSortedLanguageBar.forEach(element => {
+    Plotly.newPlot('plotter-sorted-bar-'+ languages[i], element, layout);
     i++;
 });
 
@@ -190,6 +253,8 @@ languages.forEach((option) => {
     if(j != 0){
         document.querySelector("#plotter-"+ option).style.display = "none";
         document.querySelector("#plotter-sorted-"+ option).style.display = "none";
+        document.querySelector("#plotter-bar-"+ option).style.display = "none";
+        document.querySelector("#plotter-sorted-bar-"+ option).style.display = "none";
     }else{
         createTableLanguages();
     }
@@ -200,6 +265,8 @@ algorithms.forEach((option) => {
     if(j != 0){
         document.querySelector("#plotter-"+ option).style.display = "none";
         document.querySelector("#plotter-sorted-"+ option).style.display = "none";
+        document.querySelector("#plotter-bar-"+ option).style.display = "none";
+        document.querySelector("#plotter-sorted-bar-"+ option).style.display = "none";
     }else{
         createTableAlgorithms();
     }

@@ -24,10 +24,20 @@ languages.forEach((option) => {
     plotter.style.height = plotterHeight + "px";
     document.getElementById("plotter-language-holder").appendChild(plotter);
 
+    const plotterSorted = document.createElement("div");
+    plotterSorted.id = "plotter-sorted-" + option;
+    plotterSorted.style.height = plotterHeight + "px";
+    document.getElementById("plotter-language-sorted-holder").appendChild(plotterSorted);
+
     const plotterBar = document.createElement("div");
-    plotterBar.id = "plotter-sorted-" + option;
+    plotterBar.id = "plotter-bar-" + option;
     plotterBar.style.height = plotterHeight + "px";
-    document.getElementById("plotter-language-sorted-holder").appendChild(plotterBar);
+    document.getElementById("plotter-language-bar-holder").appendChild(plotterBar);
+
+    const plotterSortedBar = document.createElement("div");
+    plotterSortedBar.id = "plotter-sorted-bar-" + option;
+    plotterSortedBar.style.height = plotterHeight + "px";
+    document.getElementById("plotter-language-sorted-bar-holder").appendChild(plotterSortedBar);
 });
 
 
@@ -47,10 +57,20 @@ algorithms.forEach((option) => {
     plotter.style.height = plotterHeight + "px";
     document.getElementById("plotter-algorithms-holder").appendChild(plotter);
 
+    const plotterSorted = document.createElement("div");
+    plotterSorted.id = "plotter-sorted-" + option;
+    plotterSorted.style.height = plotterHeight + "px";
+    document.getElementById("plotter-algorithms-sorted-holder").appendChild(plotterSorted);
+
     const plotterBar = document.createElement("div");
-    plotterBar.id = "plotter-sorted-" + option;
+    plotterBar.id = "plotter-bar-" + option;
     plotterBar.style.height = plotterHeight + "px";
-    document.getElementById("plotter-algorithms-sorted-holder").appendChild(plotterBar);
+    document.getElementById("plotter-algorithms-bar-holder").appendChild(plotterBar);
+
+    const plotterSortedBar = document.createElement("div");
+    plotterSortedBar.id = "plotter-sorted-bar-" + option;
+    plotterSortedBar.style.height = plotterHeight + "px";
+    document.getElementById("plotter-algorithms-sorted-bar-holder").appendChild(plotterSortedBar);
 
 });
 
@@ -61,9 +81,15 @@ document.getElementById("select-algorithms").addEventListener("change", (event) 
     algorithms.forEach((algorithm) => {
         document.getElementById("plotter-" + algorithm).style.display = "none";
         document.getElementById("plotter-sorted-" + algorithm).style.display = "none";
+        document.getElementById("plotter-bar-" + algorithm).style.display = "none";
+        document.getElementById("plotter-sorted-bar-" + algorithm).style.display = "none";
+
     });
     document.getElementById("plotter-" + selectedAlgorithm).style.display = "block";
     document.getElementById("plotter-sorted-" + selectedAlgorithm).style.display = "block";
+    document.getElementById("plotter-bar-" + selectedAlgorithm).style.display = "block";
+    document.getElementById("plotter-sorted-bar-" + selectedAlgorithm).style.display = "block";
+
 });
 
 //when select option is pressed, show the plotter for that language
@@ -73,9 +99,13 @@ document.getElementById("select-languages").addEventListener("change", (event) =
     languages.forEach((language) => {
         document.getElementById("plotter-" + language).style.display = "none";
         document.getElementById("plotter-sorted-" + language).style.display = "none";
+        document.getElementById("plotter-bar-" + language).style.display = "none";
+        document.getElementById("plotter-sorted-bar-" + language).style.display = "none";
     });
     document.getElementById("plotter-" + selectedLanguage).style.display = "block";
     document.getElementById("plotter-sorted-" + selectedLanguage).style.display = "block";
+    document.getElementById("plotter-bar-" + selectedLanguage).style.display = "block";
+    document.getElementById("plotter-sorted-bar-" + selectedLanguage).style.display = "block";
 });
 
 document.getElementById("select-algorithms-comparisson").addEventListener("change", (event) => {
