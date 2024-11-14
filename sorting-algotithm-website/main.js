@@ -1,4 +1,4 @@
-const languages = ["Python", "JS", "CPP"];
+const languages = ["Python", "JS", "Java", "CPP"];
 const algorithms = ["Bubble-Sort", "Quick-Sort", "Merge-Sort"];
 
 const plotterHeight = 300;
